@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Charlton-H/readme-generator/issues"
   },
-  "homepage": "https://github.com/Charlton-H/readme-generator#readme"
+  "homepage": "https://github.com/Charlton-H/readme-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
 }
