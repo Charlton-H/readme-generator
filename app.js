@@ -1,7 +1,22 @@
 const inquirer = require("inquirer");
+const generateFile = require("./src/file-template");
+const writeFile = require("./utils/generate-file");
 
 const promptUser = () => {
   return inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is your name?",
+      validate: (nameInput) => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log("Please enter your name!");
+          return false;
+        }
+      },
+    },
     {
       type: "input",
       name: "project",
@@ -37,7 +52,8 @@ const promptUser = () => {
     {
       type: "input",
       name: "demoImage",
-      message: "Provide location of your image file: ",
+      message:
+        "Provide name of your image file: (please remember to save image into the correct folder)",
       when: ({ confirmDemoImage }) => {
         if (confirmDemoImage) {
           return true;
@@ -65,4 +81,19 @@ const promptUser = () => {
       },
     },
   ]);
+  // .then((projectData) => {
+  //   portfolioData.push(projectData);
+  //     return portfolioData;
+  // })
 };
+
+promptUser()
+  .then(() => {
+    return generateFile();
+  })
+  .then((pageREADME) => {
+    return writeFile(pageREADME);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
