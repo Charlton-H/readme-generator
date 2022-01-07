@@ -1,21 +1,64 @@
+const generateInstallation = (installationText) => {
+  if (!installationText) {
+    return "";
+  }
+
+  return `
+  ## Installation
+
+  ${installationText}
+  `;
+};
+
+const generateUsage = (usageText) => {
+  if (!usageText) {
+    return "";
+  }
+
+  return `
+  ## Usage
+
+  ${usageText}
+  `;
+};
+
+const generateCredit = (creditText) => {
+  if (!creditText) {
+    return "";
+  }
+
+  return `
+  ## Credits
+
+  ${creditText}
+  `;
+};
+
 module.exports = (templateData) => {
   console.log(templateData);
 
-  // const header = templateData;
+  return `
+  # ${templateData.project}
 
-  // return `
-  // #${header.project}
+  ## Description
+  ${templateData.description}
 
-  // ## Description
-  // ${header.description}
+  ## Demo
 
-  // ## Demo
+  ![demo](./assets/images/${templateData.demoImage}.${templateData.imageFormat})
+  
+  [View Live Site Here](${templateData.demoURL})
 
-  // ![demo](./assets/images/${header.demoImage})
-  // [View Live Site Here](${header.demoURL})
+  ## Built With
 
-  // ## Built With
+  ${templateData.languages}
 
-  // ### &copy; ${new Date().getFullYear()} ${header.name}
-  // `;
+  ${generateInstallation(templateData.installation)}
+
+  ${generateUsage(templateData.usage)}
+  
+  ${generateCredit(templateData.credits)}
+
+  ### &copy; ${new Date().getFullYear()} ${templateData.name}
+  `;
 };
