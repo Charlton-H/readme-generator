@@ -20,22 +20,19 @@ const writeFile = (fileContent) => {
   });
 };
 
-const copyFile = () => {
+const createFolders = () => {
   return new Promise((resolve, reject) => {
-    fs.copyFile("./src/style.css", "./dist/style.css", (err) => {
+    fs.mkdir("./dist/assets/images", { recursive: true }, (err) => {
       if (err) {
         reject(err);
         return;
       }
       resolve({
         ok: true,
-        message: "Style sheet copied successfully!",
+        message: "Folders created successfully!",
       });
     });
   });
 };
 
-module.exports = {
-  writeFile: writeFile,
-  copyFile: copyFile,
-};
+module.exports = { writeFile, createFolders };

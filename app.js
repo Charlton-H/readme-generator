@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 // generateFile is used by this app as a template
 const generateFile = require("./src/file-template");
 // writeFile is used to write/putput template
-const writeFile = require("./utils/generate-file");
+const { writeFile, createFolders } = require("./utils/generate-file");
 
 const promptUser = () => {
   return inquirer
@@ -170,25 +170,25 @@ const promptUser = () => {
       },
     ])
     .then((projectData) => {
-      // projectData = {
-      //   name: "Charlton H",
-      //   project: "README GENERATOR",
-      //   description:
-      //     "This project helps users build a quick and easy readme.md file",
-      //   confirmDemoImage: true,
-      //   imageFormat: "PNG",
-      //   demoImage: "readme-demo",
-      //   confirmDemoURL: true,
-      //   demoURL: "yahoo.com",
-      //   languages: ["Javascript", "Node"],
-      //   confirmInstallation: true,
-      //   installation: "install of inquirer npm is necessary",
-      //   confirmUsage: true,
-      //   usage:
-      //     "usagage of this tool is pretty straight foward, after installing inquirer npm, run node app and users will be prompted questions which will be used to create a readme",
-      //   confirmCredits: true,
-      //   credits: "blah",
-      // };
+      projectData = {
+        name: "Charlton H",
+        project: "README GENERATOR",
+        description:
+          "This project helps users build a quick and easy readme.md file",
+        confirmDemoImage: false,
+        imageFormat: "PNG",
+        demoImage: "readme-demo",
+        confirmDemoURL: true,
+        demoURL: "yahoo.com",
+        languages: ["Javascript", "Node"],
+        confirmInstallation: true,
+        installation: "install of inquirer npm is necessary",
+        confirmUsage: true,
+        usage:
+          "usagage of this tool is pretty straight foward, after installing inquirer npm, run node app and users will be prompted questions which will be used to create a readme",
+        confirmCredits: true,
+        credits: "blah",
+      };
       return projectData;
     });
 };
@@ -199,6 +199,15 @@ promptUser()
   })
   .then((pageREADME) => {
     return writeFile(pageREADME);
+  })
+  .then((writeFileReponse) => {
+    console.log(writeFileReponse);
+    if (projectData.confirmDemoImage) {
+      return createFolders();
+    }
+  })
+  .then((createFoldersResponse) => {
+    console.log(createFoldersResponse);
   })
   .catch((err) => {
     console.log(err);
