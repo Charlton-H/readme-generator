@@ -34,6 +34,12 @@ const generateCredit = (creditText) => {
   `;
 };
 
+// function
+// set array to const
+// set
+// loop through array
+// if includes,
+
 module.exports = (templateData) => {
   console.log(templateData);
 
