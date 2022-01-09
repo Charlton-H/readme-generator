@@ -1,9 +1,9 @@
 // node.js package to prompt users for entry
 const inquirer = require("inquirer");
 // generateFile is used by this app as a template
-const generateFile = require("./src/readme-template");
+const generateFile = require("./src/readme-template.js");
 // writeFile is used to write/putput template
-const { writeFile, createFolders } = require("./utils/generate-readme.js");
+const { writeFile, createFolders } = require("./utils/generate-markdown.js");
 
 const promptUser = () => {
   return inquirer
@@ -52,15 +52,7 @@ const promptUser = () => {
         type: "checkbox",
         name: "languages",
         message: "What did you build this project with? (Check all that apply)",
-        choices: [
-          "Javascript",
-          "HTML",
-          "CSS",
-          "ES6",
-          "jQuery",
-          "Bootstrap",
-          "Node",
-        ],
+        choices: ["Javascript", "HTML", "CSS", "jQuery", "Bootstrap", "Node"],
       },
       {
         type: "confirm",
@@ -84,8 +76,8 @@ const promptUser = () => {
       {
         type: "input",
         name: "demoImage",
-        message: `Provide name of your image file: 
-          (!Reminder to save image into the correct folder '/assets/images' after)`,
+        message: `(!Reminder to save image into the correct folder '/assets/images' after)
+        Provide name of your image file:`,
         when: ({ confirmDemoImage }) => {
           if (confirmDemoImage) {
             return true;
@@ -112,14 +104,6 @@ const promptUser = () => {
           }
         },
       },
-      // TAABLE OF CONTENTS
-      // {
-      //   type: "confirm",
-      //   name: "confirmTableOfContents",
-      //   message:
-      //     "Would you like to include a Table of Contents in your README.md?",
-      //   default: false,
-      // },
       {
         type: "checkbox",
         name: "sections",
@@ -133,13 +117,6 @@ const promptUser = () => {
           "Tests",
           "Questions",
         ],
-        // when: ({ confirmTableOfContents }) => {
-        //   if (confirmTableOfContents) {
-        //     return true;
-        //   } else {
-        //     return false;
-        //   }
-        // },
       },
       // INSTALLATION
       {
@@ -235,6 +212,33 @@ const promptUser = () => {
     ])
     .then((projectData) => {
       // console.log(projectData);
+      // console.log(projectData.confirmDemoImage);
+      projectData = {
+        name: "Charlton Hua",
+        project: "ReadMe Generator",
+        description: "Readme gen for quick and painless",
+        languages: ["Javascript", "Node"],
+        confirmDemoImage: true,
+        imageFormat: "PNG",
+        demoImage: "demo",
+        confirmDemoURL: true,
+        demoURL: "yahoo.com",
+        sections: [
+          "Installation",
+          "Usage",
+          "License",
+          "Contribution",
+          "Tests",
+          "Questions",
+        ],
+        installation: "asdffff inst",
+        usage: "asdfff use",
+        license: ["MIT", "BSD"],
+        contributions: "aassdf contribute",
+        tests: "asfdfas te",
+        username: "sfasf",
+        email: "fffff",
+      };
       return projectData;
     });
 };
@@ -248,9 +252,11 @@ promptUser()
   })
   .then((writeFileReponse) => {
     console.log(writeFileReponse);
-    if (projectData.confirmDemoImage) {
-      return createFolders();
-    }
+    // this 'if' previously worked and then stopped recognizing value but can console.log on line 223?!?!GRRR
+    // if (projectData.confirmDemoImage) {
+    //   return createFolders();
+    // }
+    return createFolders();
   })
   .then((createFoldersResponse) => {
     console.log(createFoldersResponse);
