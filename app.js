@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 // generateFile is used by this app as a template
 const generateFile = require("./src/readme-template");
 // writeFile is used to write/putput template
-const { writeFile, createFolders } = require("./utils/generate-readme");
+const { writeFile, createFolders } = require("./utils/generate-readme.js");
 
 const promptUser = () => {
   return inquirer
