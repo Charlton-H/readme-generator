@@ -75,19 +75,27 @@ const tableOfContents = (contents) => {
 };
 
 const installationSection = (installation) => {
-  return `
+  if (!installation) {
+    return "";
+  } else {
+    return `
 ## Installation
   
 ${installation}
   `;
+  }
 };
 
 const usageSection = (usage) => {
-  return `
+  if (!usage) {
+    return "";
+  } else {
+    return `
 ## Usage
   
 ${usage}
   `;
+  }
 };
 
 // TODO: Create a function that returns the license link
@@ -102,29 +110,41 @@ function renderLicenseLink(license) {
 }
 
 const contributionSection = (contribution) => {
-  return `
+  if (!contribution) {
+    return "";
+  } else {
+    return `
 ## Contribution
   
 ${contribution}
   `;
+  }
 };
 
 const testsSection = (tests) => {
-  return `
+  if (!tests) {
+    return "";
+  } else {
+    return `
 ## Tests
   
 ${tests}
   `;
+  }
 };
 
 const questionsSection = (username, email) => {
-  return `## Questions
+  if (!username && !email) {
+    return "";
+  } else {
+    return `## Questions
   
 All questions maybe directed to the contact information listed below.
 
 Github: ${username}
 Email: ${email}
   `;
+  }
 };
 
 module.exports = (data) => {

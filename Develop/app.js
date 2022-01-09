@@ -213,32 +213,32 @@ const promptUser = () => {
     .then((projectData) => {
       // console.log(projectData);
       // console.log(projectData.confirmDemoImage);
-      projectData = {
-        name: "Charlton Hua",
-        project: "ReadMe Generator",
-        description: "Readme gen for quick and painless",
-        languages: ["Javascript", "Node"],
-        confirmDemoImage: true,
-        imageFormat: "PNG",
-        demoImage: "demo",
-        confirmDemoURL: true,
-        demoURL: "yahoo.com",
-        sections: [
-          "Installation",
-          "Usage",
-          "License",
-          "Contribution",
-          "Tests",
-          "Questions",
-        ],
-        installation: "asdffff inst",
-        usage: "asdfff use",
-        license: ["MIT", "BSD"],
-        contributions: "aassdf contribute",
-        tests: "asfdfas te",
-        username: "sfasf",
-        email: "fffff",
-      };
+      // projectData = {
+      //   name: "Charlton Hua",
+      //   project: "ReadMe Generator",
+      //   description: "Readme gen for quick and painless",
+      //   languages: ["Javascript", "Node"],
+      //   confirmDemoImage: true,
+      //   imageFormat: "PNG",
+      //   demoImage: "demo",
+      //   confirmDemoURL: true,
+      //   demoURL: "yahoo.com",
+      //   sections: [
+      //     "Installation",
+      //     "Usage",
+      //     "License",
+      //     "Contribution",
+      //     "Tests",
+      //     "Questions",
+      //   ],
+      //   installation: "asdffff inst",
+      //   usage: "asdfff use",
+      //   license: ["MIT", "BSD"],
+      //   contributions: "aassdf contribute",
+      //   tests: "asfdfas te",
+      //   username: "sfasf",
+      //   email: "fffff",
+      // };
       return projectData;
     });
 };
