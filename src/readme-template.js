@@ -1,69 +1,85 @@
-const generateInstallation = (installationText) => {
-  if (!installationText) {
-    return "";
-  }
+const descriptionSection = (description, demoName, demoFormat, liveSite) => {
+  const demoSection = (demoImage, demoFormat) => {
+    return `
+    ## Demo
+    
+    ![demo](./assets/images/${demoImage}.${demoFormat})
+    `;
+  };
 
-  return `
-  ## Installation
+  const liveSiteSection = (liveSite) => {
+    return `[View Live Site Here](${liveSite})`;
+  };
 
-  ${installationText}
+  if (demoName && liveSite) {
+    return `
+  ## Description
+    
+  ${description}
+
+  ${demoSection(demoName, demoFormat)}
+
+  ${liveSiteSection(liveSite)}
   `;
+  } else if (!demoName) {
+    return `
+  ## Description
+    
+  ${description}
+
+  ${liveSiteSection(liveSite)}
+  `;
+  } else if (!liveSite) {
+    return `
+  ## Description
+      
+  ${description}
+  
+  ${demoSection(demoName, demoFormat)}
+  `;
+  }
 };
 
-const generateUsage = (usageText) => {
-  if (!usageText) {
-    return "";
-  }
+const builtWithSection = (languages) => {
+  return `## Built With
 
-  return `
-  ## Usage
-
-  ${usageText}
-  `;
+  ${languages}`;
 };
 
-const generateCredit = (creditText) => {
-  if (!creditText) {
+const tableOfContents = (contents) => {
+  const renderContents = () => {
+    const makeContents = contents.map((contents) => {
+      return `* [${contents}](#${contents})`;
+    });
+    return makeContents.join("\n");
+  };
+
+  if (!renderContents(contents)) {
     return "";
-  }
-
-  return `
-  ## Credits
-
-  ${creditText}
+  } else {
+    return `
+  ## Table of Contents
+    
+  ${renderContents(contents)}
   `;
+  }
 };
-
-// function
-// set array to const
-// set
-// loop through array
-// if includes,
 
 module.exports = (templateData) => {
-  console.log(templateData);
-
   return `
   # ${templateData.project}
 
-  ## Description
-  ${templateData.description}
+  ${descriptionSection(
+    templateData.description,
+    templateData.demoImage,
+    templateData.imageFormat,
+    templateData.demoURL
+  )}
 
-  ## Demo
+  ${builtWithSection(templateData.languages)}
 
-  ![demo](./assets/images/${templateData.demoImage}.${templateData.imageFormat})
-  
-  [View Live Site Here](${templateData.demoURL})
+  ${tableOfContents(templateData.sections)}
 
-  ## Built With
-
-  ${templateData.languages}
-
-  ${generateInstallation(templateData.installation)}
-
-  ${generateUsage(templateData.usage)}
-  
-  ${generateCredit(templateData.credits)}
 
   ### &copy; ${new Date().getFullYear()} ${templateData.name}
   `;

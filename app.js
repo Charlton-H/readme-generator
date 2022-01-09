@@ -11,7 +11,7 @@ const promptUser = () => {
       {
         type: "input",
         name: "name",
-        message: "What is your name?",
+        message: "What is your full name?",
         validate: (nameInput) => {
           if (nameInput) {
             return true;
@@ -24,9 +24,9 @@ const promptUser = () => {
       {
         type: "input",
         name: "project",
-        message: "What is the name of your project?",
-        validate: (projectInput) => {
-          if (projectInput) {
+        message: "What is the title of your README.md?",
+        validate: (titleInput) => {
+          if (titleInput) {
             return true;
           } else {
             console.log("Please enter a project name!");
@@ -37,7 +37,8 @@ const promptUser = () => {
       {
         type: "input",
         name: "description",
-        message: "In a brief description, what is the purpose of your project?",
+        message:
+          "In a brief description, describe the purpose of your project:",
         validate: (descriptionInput) => {
           if (descriptionInput) {
             return true;
@@ -48,10 +49,24 @@ const promptUser = () => {
         },
       },
       {
+        type: "checkbox",
+        name: "languages",
+        message: "What did you build this project with? (Check all that apply)",
+        choices: [
+          "Javascript",
+          "HTML",
+          "CSS",
+          "ES6",
+          "jQuery",
+          "Bootstrap",
+          "Node",
+        ],
+      },
+      {
         type: "confirm",
         name: "confirmDemoImage",
         message: "Would you like to display a demo image of your project?",
-        default: true,
+        default: false,
       },
       {
         type: "list",
@@ -69,8 +84,8 @@ const promptUser = () => {
       {
         type: "input",
         name: "demoImage",
-        message:
-          "Provide name of your image file: (please remember to save image into the correct folder)",
+        message: `Provide name of your image file: 
+          (!Reminder to save image into the correct folder '/assets/images' after)`,
         when: ({ confirmDemoImage }) => {
           if (confirmDemoImage) {
             return true;
@@ -97,52 +112,108 @@ const promptUser = () => {
           }
         },
       },
+      // TAABLE OF CONTENTS
+      // {
+      //   type: "confirm",
+      //   name: "confirmTableOfContents",
+      //   message:
+      //     "Would you like to include a Table of Contents in your README.md?",
+      //   default: false,
+      // },
       {
         type: "checkbox",
-        name: "languages",
-        message: "What did you build this project with? (Check all that apply)",
-        choices: [
-          "Javascript",
-          "HTML",
-          "CSS",
-          "ES6",
-          "jQuery",
-          "Bootstrap",
-          "Node",
-        ],
-      },
-      {
-        type: "confirm",
-        name: "confirmInstallation",
+        name: "sections",
         message:
-          "Would you like to include an Installation section in your README.md?",
-        default: false,
+          "What additional sections would you like to add to this README.md? (Check all that apply)",
+        choices: [
+          "Installation",
+          "Usage",
+          "License",
+          "Contribution",
+          "Tests",
+          "Questions",
+        ],
+        // when: ({ confirmTableOfContents }) => {
+        //   if (confirmTableOfContents) {
+        //     return true;
+        //   } else {
+        //     return false;
+        //   }
+        // },
       },
+      // INSTALLATION
       {
         type: "input",
         name: "installation",
-        message: "Provide installation detail: ",
-        when: ({ confirmInstallation }) => {
-          if (confirmInstallation) {
+        message: "Enter installation instructions:",
+        when: ({ sections }) => {
+          if (sections.includes("Installation")) {
             return true;
           } else {
             return false;
           }
         },
       },
-      {
-        type: "confirm",
-        name: "confirmUsage",
-        message:
-          "Would you like to include an Usage section in your README.md?",
-        default: false,
-      },
+      // USAGE
       {
         type: "input",
         name: "usage",
-        message: "Provide usage detail: ",
-        when: ({ confirmUsage }) => {
-          if (confirmUsage) {
+        message: "Enter usage examples:",
+        when: ({ sections }) => {
+          if (sections.includes("Usage")) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+      // LICENSES
+      {
+        type: "checkbox",
+        name: "license",
+        choices: ["MIT", "BSD", "MPL"],
+        message: "Select your licenses",
+        when: ({ sections }) => {
+          if (sections.includes("License")) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+      // CONTRIBUTION
+      {
+        type: "input",
+        name: "contributions",
+        message: "Enter comments on how to contribute:",
+        when: ({ sections }) => {
+          if (sections.includes("Contribution")) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+      // TESTS
+      {
+        type: "input",
+        name: "tests",
+        message: "Explain the testing procedures:",
+        when: ({ sections }) => {
+          if (sections.includes("Tests")) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+      // QUESTIONS
+      {
+        type: "input",
+        name: "username",
+        message: "Enter your GitHub username:",
+        when: ({ sections }) => {
+          if (sections.includes("Questions")) {
             return true;
           } else {
             return false;
@@ -150,18 +221,11 @@ const promptUser = () => {
         },
       },
       {
-        type: "confirm",
-        name: "confirmCredits",
-        message:
-          "Would you like to include an Credits section in your README.md?",
-        default: false,
-      },
-      {
         type: "input",
-        name: "credits",
-        message: "Provide credits detail: ",
-        when: ({ confirmCredits }) => {
-          if (confirmCredits) {
+        name: "email",
+        message: "Enter your email address:",
+        when: ({ sections }) => {
+          if (sections.includes("Questions")) {
             return true;
           } else {
             return false;
@@ -170,25 +234,7 @@ const promptUser = () => {
       },
     ])
     .then((projectData) => {
-      projectData = {
-        name: "Charlton H",
-        project: "README GENERATOR",
-        description:
-          "This project helps users build a quick and easy readme.md file",
-        confirmDemoImage: false,
-        imageFormat: "PNG",
-        demoImage: "readme-demo",
-        confirmDemoURL: true,
-        demoURL: "yahoo.com",
-        languages: ["Javascript", "Node"],
-        confirmInstallation: true,
-        installation: "install of inquirer npm is necessary",
-        confirmUsage: true,
-        usage:
-          "usagage of this tool is pretty straight foward, after installing inquirer npm, run node app and users will be prompted questions which will be used to create a readme",
-        confirmCredits: true,
-        credits: "blah",
-      };
+      // console.log(projectData);
       return projectData;
     });
 };
